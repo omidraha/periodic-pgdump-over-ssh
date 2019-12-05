@@ -1,0 +1,25 @@
+version: '2'
+services:
+    pgbackups:
+        image: omidraha/periodic-pgdump-over-ssh
+        restart: always
+        volumes:
+            - ${BACKUP_DIR}:/var/opt/pgbackups
+            - /root/.ssh:/root/.ssh
+        environment:
+            - SSH_REMOTE_USER
+            - SSH_REMOTE_HOST
+            - POSTGRES_DB_CONTAINER_NAME
+            - POSTGRES_PORT
+            - POSTGRES_DB
+            - POSTGRES_USER
+            - POSTGRES_PASSWORD
+         #  - POSTGRES_PASSWORD_FILE=/run/secrets/db_password <-- alternative for POSTGRES_PASSWORD (to use with docker secrets)
+            - POSTGRES_EXTRA_OPTS=-Z9 --schema=public --blobs
+            - SCHEDULE
+            - BACKUP_DIR
+            - BACKUP_KEEP_DAYS=7
+            - BACKUP_KEEP_WEEKS=4
+            - BACKUP_KEEP_MONTHS=6
+            - HEALTHCHECK_PORT=80
+
