@@ -70,7 +70,8 @@ for DB in ${POSTGRES_DBS}; do
   echo "Backup file will be store in  ${DFILE}"
   #Create dump
   echo "Creating dump of ${DB} database from ${SSH_REMOTE_USER}@${SSH_REMOTE_HOST} inside of ${POSTGRES_DB_CONTAINER_NAME} container ..."
-  ssh ${SSH_REMOTE_USER}@${SSH_REMOTE_HOST} docker exec ${POSTGRES_DB_CONTAINER_NAME} pg_dump -U  ${PGUSER} ${POSTGRES_HOST_OPTS} ${DB} > ${DFILE}
+  #  @see: https://askubuntu.com/a/123080
+  ssh ${SSH_REMOTE_USER}@${SSH_REMOTE_HOST} -oStrictHostKeyChecking=no docker exec ${POSTGRES_DB_CONTAINER_NAME} pg_dump -U  ${PGUSER} ${POSTGRES_HOST_OPTS} ${DB} > ${DFILE}
   #Copy (hardlink) for each entry
   ln -vf "${DFILE}" "${WFILE}"
   ln -vf "${DFILE}" "${MFILE}"
