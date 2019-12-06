@@ -1,9 +1,9 @@
-# Periodically backup PostgresSQL container by using pg_dump over ssh using docker to local filesystem
+# Periodically backup PostgreSQL container by using pg_dump over ssh using docker to local filesystem
 
 It's same as [docker-postgres-backup-local](https://github.com/prodrigestivill/docker-postgres-backup-local), 
 But:
 1. Used `pg_dump` over ssh
-2. Backup from remote PostgresSQL container
+2. Backup from remote PostgreSQL container
 
 
 ## Usage
